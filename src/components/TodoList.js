@@ -10,16 +10,18 @@ class TodoList extends React.Component {
     this.state = {
       isLoading: true,
       data: {}
-    }
+    };
+
+    this.messagesRef = null;
   }
 
   componentDidMount() {
-    this.messagesRef = firebase.listenTo('messages', (data) => {
-      // We call .val() to get an actual data object, rather than a firebase object
+    this.messagesRef = firebase.listenTo('messages', (firebaseData) => {
+      // We call .val() to get an actual data object, rather than a Firebase object
       this.setState({
         isLoading: false,
-        data: data.val()
-      })
+        data: firebaseData.val()
+      });
     });
   }
 
