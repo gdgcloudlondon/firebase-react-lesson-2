@@ -9,17 +9,20 @@ const ListItem = (props) => {
   // firebaseKey is the key that Firebase uses for this piece of data
   const firebaseKey = props.firebaseKey;
 
+
   // We can use this to toggle that the item is to be checked off
   const toggleIsChecked = () => {
     listItem.isChecked = !listItem.isChecked;
     firebase.update(`messages/${firebaseKey}`, listItem);
   }
 
+
   // We can use this to remove this item from our Firebase Database
   const removeItem = () => {
     const itemToRemove = `messages/${firebaseKey}`;
     // How can we remove this data?
   }
+
 
   // A simple way to add extra classes to an element based on some state of the list item
   const isCheckedClasses = isChecked ? 'list-group-item-secondary text-muted' : '';

@@ -24,10 +24,10 @@ const database = firebase.database();
  * Listens to a path in Firebase and then will call the passed function with the data as a parameter
  *
  * @param {string} dataToListenTo E.g. "messages"
- * @param {function} callbackFunction
+ * @param {Function} callbackFunction
  * @returns {Object} Firebase reference
  */
-function listenTo(dataToListenTo = '', callbackFunction = () => {}) {
+const listenTo = (dataToListenTo = '', callbackFunction = () => {}) => {
     const databaseRef = database.ref(dataToListenTo);
 
     databaseRef.on('value', (snapshot) => {
@@ -41,9 +41,9 @@ function listenTo(dataToListenTo = '', callbackFunction = () => {}) {
  * Adds a piece of information to the passed collection.
  * If the collection does not exist, it is created
  * @param {string} dataToWriteTo E.g. "messages"
- * @param {Object|string} value E.g. { data: "value" }
+ * @param {*} value E.g. { data: "value" }
  */
-function writeTo(dataToWriteTo = '', value) {
+const writeTo = (dataToWriteTo = '', value) => {
     const databaseRef = database.ref(dataToWriteTo);
 
     databaseRef.push(value)
@@ -54,7 +54,7 @@ function writeTo(dataToWriteTo = '', value) {
  * @param {string} keyToUpdate E.g. "messages/{messageId}"
  * @param {*} value { data: "value" }
  */
-function update(keyToUpdate = '', value) {
+const update = (keyToUpdate = '', value) => {
     const databaseRef = database.ref(keyToUpdate);
 
     databaseRef.update(value)
@@ -64,7 +64,7 @@ function update(keyToUpdate = '', value) {
  * Removes a particular entry in Firebase
  * @param {string} keyToUpdate E.g. "messages/{messageId}"
  */
-function remove(keyToUpdate = '') {
+const remove = (keyToUpdate = '') => {
     const databaseRef = database.ref(keyToUpdate);
 
     databaseRef.remove();
