@@ -5,13 +5,13 @@ import 'firebase/database';
 
 // Set the configuration for your app
 const firebaseConfig = {
-    apiKey: "AIzaSyCtqjDIWYbMkTzoVMvSYTznfzealEtnQOo",
-    authDomain: "fir-course-180ac.firebaseapp.com",
-    databaseURL: "https://fir-course-180ac.firebaseio.com",
-    projectId: "fir-course-180ac",
-    storageBucket: "fir-course-180ac.appspot.com",
-    messagingSenderId: "107133395777",
-    appId: "1:107133395777:web:d21b1a03eded76533db7c0"
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: "",
 };
 
 // Initialize Firebase

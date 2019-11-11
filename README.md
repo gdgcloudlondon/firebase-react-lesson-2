@@ -1,11 +1,10 @@
 # Lesson 2
 
-Rough aims;
+Tasks to complete;
 
-* Hook up `ListItem` with the ability to "check" an item
+* Sign up for a Firebase account and add your config to the `src/services/firebase.js` file
+* The `InputField` component probably shouldn't be loaded before the `TodoList` is loaded. Move it to be loaded as part of the `TodoList` component
 * Hook up `ListItem` with the ability to remove an item
-* Hook up `Form` with the ability to create an item
-
 
 ---
 
