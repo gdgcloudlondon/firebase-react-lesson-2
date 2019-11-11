@@ -2,9 +2,8 @@ import React from 'react';
 
 import firebase from '../services/firebase';
 import ListItem from './ListItem';
-import Form from './Form';
 
-class List extends React.Component {
+class TodoList extends React.Component {
   constructor(props) {
     super(props);
 
@@ -40,10 +39,14 @@ class List extends React.Component {
       )
     }
 
+    // Sometimes we might want to re-structure the data we get so that it is
+    // easier to work with. Here, we take each list item and create a new array
+    // of objects, each with a "key" and a "value". We need the "key" because
+    // this is the Firebase key for this particular item, and if we want to
+    // update the item then we must use this key
     const formattedData = Object.entries(this.state.data || {}).map((listItem) => {
       // listItem is an array with 2 values - the first being the firebase key
-      // and the second being the data itself. We want to get the data out like
-      // this because we will need the key to update our data
+      // and the second being the data itself
       return {
         key: listItem[0],
         value: listItem[1]
@@ -52,11 +55,13 @@ class List extends React.Component {
 
     return (
       <div>
-        <Form />
         <div className="list-group">
           {formattedData.map((listItem) => {
             return (
               <ListItem
+                // When looping over elements in React, remember to add a unique
+                // "key" value. This is so React can optimise its updates and
+                // only update stuff that changes
                 key={listItem.key}
                 firebaseKey={listItem.key}
                 data={listItem.value}
@@ -69,4 +74,4 @@ class List extends React.Component {
   }
 }
 
-export default List;
+export default TodoList;

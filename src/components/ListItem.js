@@ -3,30 +3,35 @@ import React from 'react';
 import firebase from '../services/firebase';
 
 const ListItem = (props) => {
-  const messageData = props.data;
-  const key = props.firebaseKey;
+  // listItem is the current item in the list
+  const listItem = props.data;
+  const isChecked = listItem.isChecked;
+  // firebaseKey is the key that Firebase uses for this piece of data
+  const firebaseKey = props.firebaseKey;
 
+  // We can use this to toggle that the item is to be checked off
   const toggleIsChecked = () => {
-    messageData.isChecked = !messageData.isChecked;
-    firebase.updateTo(`messages/${key}`, messageData);
+    listItem.isChecked = !listItem.isChecked;
+    firebase.update(`messages/${firebaseKey}`, listItem);
   }
 
+  // We can use this to remove this item from our Firebase Database
   const removeItem = () => {
-    firebase.remove(`messages/${key}`);
+    const itemToRemove = `messages/${firebaseKey}`;
+    // How can we remove this data?
   }
 
-  const isChecked = messageData.isChecked;
+  // A simple way to add extra classes to an element based on some state of the list item
+  const isCheckedClasses = isChecked ? 'list-group-item-secondary text-muted' : '';
 
   return (
-    <div
-      className={`${isChecked ? 'list-group-item-secondary' : ''} list-group-item list-group-item d-flex justify-content-between align-items-center`}
-    >
+    <div className={`${isCheckedClasses} list-group-item list-group-item d-flex justify-content-between align-items-center`}>
       <div onClick={toggleIsChecked} className="w-100">
-        {messageData.message}
+        {listItem.message}
         <br />
-        <small className="text-muted">{messageData.time || 'No time'}</small>
+        <small className="text-muted">{listItem.time}</small>
       </div>
-      <span className="badge badge-danger badge-pill" onClick={removeItem}>x</span>
+      <span className="badge badge-danger badge-pill">x</span>
     </div>
   );
 }

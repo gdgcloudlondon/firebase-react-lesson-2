@@ -1,8 +1,9 @@
-import firebase from 'firebase';
+// Import base firebase code
+import firebase from 'firebase/app';
+// Import database functions, because we plan on using them
+import 'firebase/database';
 
 // Set the configuration for your app
-// TODO: Replace with your project's config object
-// Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyCtqjDIWYbMkTzoVMvSYTznfzealEtnQOo",
     authDomain: "fir-course-180ac.firebaseapp.com",
@@ -12,82 +13,66 @@ const firebaseConfig = {
     messagingSenderId: "107133395777",
     appId: "1:107133395777:web:d21b1a03eded76533db7c0"
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 // Get a reference to the database service
 const database = firebase.database();
 
-function writeTestData() {
-    // console.log(database);
-    const messagesRef = database.ref(`messages/${randomNumber()}`);
-    console.log(messagesRef);
-
-    messagesRef.set({
-        message: "wow"
-    })
-
-    // let setSf = citiesRef.doc('message').set({
-    //     message: "message one"
-    // });
-    // let setLa = citiesRef.doc('message').set({
-    //     message: "message two"
-    // });
-
-}
-
-function getTestData(callbackFunction = () => {}) {
-    const messagesRef = database.ref(`messages`);
-    messagesRef.on('value', function(snapshot) {
-        callbackFunction(snapshot);
-    });
-}
-
+/**
+ * Listens to a path in Firebase and then will call the passed function with the data as a parameter
+ *
+ * @param {string} dataToListenTo E.g. "messages"
+ * @param {function} callbackFunction
+ * @returns {Object} Firebase reference
+ */
 function listenTo(dataToListenTo = '', callbackFunction = () => {}) {
     const databaseRef = database.ref(dataToListenTo);
-    databaseRef.on('value', function(snapshot) {
+
+    databaseRef.on('value', (snapshot) => {
         callbackFunction(snapshot);
     });
 
     return databaseRef;
 }
 
+/**
+ * Adds a piece of information to the passed collection.
+ * If the collection does not exist, it is created
+ * @param {string} dataToWriteTo E.g. "messages"
+ * @param {Object|string} value E.g. { data: "value" }
+ */
 function writeTo(dataToWriteTo = '', value) {
     const databaseRef = database.ref(dataToWriteTo);
 
     databaseRef.push(value)
 }
 
-function updateTo(dataToWriteTo = '', value) {
-    const databaseRef = database.ref(dataToWriteTo);
+/**
+ * Updates a path with the passed value
+ * @param {string} keyToUpdate E.g. "messages/{messageId}"
+ * @param {*} value { data: "value" }
+ */
+function update(keyToUpdate = '', value) {
+    const databaseRef = database.ref(keyToUpdate);
 
     databaseRef.update(value)
 }
 
-function remove(dataToWriteTo = '') {
-    const databaseRef = database.ref(dataToWriteTo);
+/**
+ * Removes a particular entry in Firebase
+ * @param {string} keyToUpdate E.g. "messages/{messageId}"
+ */
+function remove(keyToUpdate = '') {
+    const databaseRef = database.ref(keyToUpdate);
 
     databaseRef.remove();
 }
 
-function writeToMessages(value) {
-    const messagesRef = database.ref('messages');
-
-    messagesRef.push({
-        message: value
-    })
-}
-
-function randomNumber() {
-    return Math.floor(Math.random() * 1e6);
-}
-
 export default {
     writeTo,
-    writeToMessages,
     listenTo,
-    writeTestData,
-    getTestData,
-    updateTo,
+    update,
     remove
 }
