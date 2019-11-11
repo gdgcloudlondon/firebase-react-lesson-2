@@ -46,7 +46,7 @@ const listenTo = (dataToListenTo = '', callbackFunction = () => {}) => {
 const writeTo = (dataToWriteTo = '', value) => {
     const databaseRef = database.ref(dataToWriteTo);
 
-    databaseRef.push(value)
+    databaseRef.push(value);
 }
 
 /**
@@ -57,7 +57,7 @@ const writeTo = (dataToWriteTo = '', value) => {
 const update = (keyToUpdate = '', value) => {
     const databaseRef = database.ref(keyToUpdate);
 
-    databaseRef.update(value)
+    databaseRef.update(value);
 }
 
 /**
