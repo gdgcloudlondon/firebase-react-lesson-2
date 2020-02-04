@@ -2,6 +2,7 @@ import React from 'react';
 
 import firebase from '../services/firebase';
 import ListItem from './ListItem';
+import InputField from './InputField';
 
 class TodoList extends React.Component {
   constructor(props) {
@@ -57,6 +58,9 @@ class TodoList extends React.Component {
 
     return (
       <div>
+        {/* This has been moved here from our App.js */}
+        <InputField />
+
         <div className="list-group">
           {formattedData.map((listItem) => {
             return (
